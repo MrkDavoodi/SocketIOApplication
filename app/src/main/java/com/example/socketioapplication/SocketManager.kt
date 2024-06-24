@@ -1,4 +1,5 @@
 package com.example.socketioapplication
+
 import io.socket.client.IO
 import io.socket.client.Socket
 import org.json.JSONArray
@@ -27,15 +28,17 @@ class SocketManager {
     fun isConnected(): Boolean {
         return socket?.connected() ?: false
     }
-    fun onVersionJSONReceived(listener: (JSONArray) -> Unit) {
 
-        socket?.on("jsonFile") { args ->
-            val version = args[0] as JSONObject
-            val versionDetail=version.getJSONArray("VideoList")
-            listener.invoke(versionDetail)
-        }
+    fun onVersionJSONReceived(listener: (JSONArray) -> Unit) {
+        if (socket?.connected() == true)
+            socket?.on("jsonFile") { args ->
+                val version = args[0] as JSONObject
+                val versionDetail = version.getJSONArray("VideoList")
+                listener.invoke(versionDetail)
+            }
 
     }
+
     fun sendRequest() {
         socket?.emit("getVersion")
     }
