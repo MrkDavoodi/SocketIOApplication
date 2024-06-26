@@ -67,6 +67,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation (libs.socket.io.client)
-    implementation(libs.comshot)
 
+    // Retrofit for network requests
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 }
